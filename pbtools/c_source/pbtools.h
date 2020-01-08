@@ -654,6 +654,12 @@ int pbtools_message_decode(struct pbtools_message_base_t *self_p,
                            size_t size,
                            pbtools_message_decode_inner_t message_decode_inner);
 
+int pbtools_sub_message_alloc(
+    struct pbtools_message_base_t **message_pp,
+    struct pbtools_heap_t *heap_p,
+    size_t sub_message_size,
+    pbtools_message_init_t message_init);
+
 int pbtools_alloc_repeated(
     struct pbtools_repeated_message_t *repeated_p,
     int length,
@@ -688,7 +694,9 @@ void pbtools_encoder_sub_message_encode(
 void pbtools_decoder_sub_message_decode(
     struct pbtools_decoder_t *self_p,
     int wire_type,
-    struct pbtools_message_base_t *message_p,
+    struct pbtools_message_base_t **message_pp,
+    size_t sub_message_size,
+    pbtools_message_init_t message_init,
     pbtools_message_decode_inner_t decode_inner);
 
 const char *pbtools_error_code_to_string(int code);

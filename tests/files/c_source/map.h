@@ -81,7 +81,7 @@ struct map_message_pbtools_map_map2_repeated_t {
 struct map_message_pbtools_map_map2_t {
     struct pbtools_message_base_t base;
     int32_t key;
-    struct map_value_t value;
+    struct map_value_t *value_p;
 };
 
 /**
@@ -97,7 +97,7 @@ struct map_message_pbtools_map_map3_repeated_t {
 struct map_message_pbtools_map_map3_t {
     struct pbtools_message_base_t base;
     int32_t key;
-    struct map_value_t value;
+    struct map_value_t *value_p;
 };
 
 /**
@@ -146,7 +146,7 @@ struct map_message2_map2_repeated_t {
 struct map_message2_map2_t {
     struct pbtools_message_base_t base;
     int32_t key;
-    struct map_value_t value;
+    struct map_value_t *value_p;
 };
 
 /**
@@ -162,7 +162,7 @@ struct map_message2_map3_repeated_t {
 struct map_message2_map3_t {
     struct pbtools_message_base_t base;
     int32_t key;
-    struct map_value_t value;
+    struct map_value_t *value_p;
 };
 
 /**
@@ -212,6 +212,12 @@ int map_message_map3_alloc(
     struct map_message_t *self_p,
     int length);
 
+int map_message_pbtools_map_map2_value_alloc(
+    struct map_message_pbtools_map_map2_t *self_p);
+
+int map_message_pbtools_map_map3_value_alloc(
+    struct map_message_pbtools_map_map3_t *self_p);
+
 /**
  * Encoding and decoding of map.Message.
  */
@@ -241,6 +247,12 @@ int map_message2_map2_alloc(
 int map_message2_map3_alloc(
     struct map_message2_t *self_p,
     int length);
+
+int map_message2_map2_value_alloc(
+    struct map_message2_map2_t *self_p);
+
+int map_message2_map3_value_alloc(
+    struct map_message2_map3_t *self_p);
 
 /**
  * Encoding and decoding of map.Message2.

@@ -26,8 +26,9 @@ CFLAGS ?= \
 	-Wformat=2 \
 	-Wshadow \
 	-Werror \
-	-O3 \
+	-O1 \
 	-g \
+	-no-pie \
 	-std=gnu11 \
 	-Wconversion \
 	-Wall \
@@ -39,10 +40,11 @@ all:
 	    -D PBTOOLS_CONFIG_FLOAT=0 \
 	    -I ../pbtools/c_source \
 	    -c \
+	    -no-pie \
 	    ../pbtools/c_source/pbtools.c \
 	    -o no-float.o
-	gcc -O2 -g nala.c -c -o nala.o
-	gcc -O2 -g -I../pbtools/c_source main.c -c -o main.o
+	gcc -O2 -no-pie -g nala.c -c -o nala.o
+	gcc -O2 -no-pie -g -I../pbtools/c_source main.c -c -o main.o
 	gcc \
 	    $(CFLAGS) \
 	    -I../pbtools/c_source \
@@ -66,10 +68,8 @@ all:
 	    files/c_source/enum.c \
 	    files/c_source/address_book.c \
 	    files/c_source/tags.c \
-	    files/c_source/oneof.c \
 	    files/c_source/repeated.c \
 	    files/c_source/scalar_value_types.c \
-	    files/c_source/benchmark.c \
 	    files/c_source/message.c \
 	    files/c_source/no_package.c \
 	    files/c_source/ordering.c \
@@ -83,7 +83,6 @@ all:
 	    files/c_source/no_package_imported.c \
 	    files/c_source/enum_user.c \
 	    files/c_source/enum_provider.c \
-	    files/c_source/field_names.c \
 	    files/c_source/map.c \
 	    main.o
 	./a.out

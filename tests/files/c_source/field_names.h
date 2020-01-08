@@ -88,7 +88,7 @@ struct field_names_message_camel_case_t {
     char *my_string_p;
     struct pbtools_bytes_t my_bytes;
     enum field_names_enum_e my_enum;
-    struct field_names_message_t my_message;
+    struct field_names_message_t *my_message_p;
 };
 
 /**
@@ -119,7 +119,7 @@ struct field_names_message_pascal_case_t {
     char *my_string_p;
     struct pbtools_bytes_t my_bytes;
     enum field_names_enum_e my_enum;
-    struct field_names_message_t my_message;
+    struct field_names_message_t *my_message_p;
 };
 
 /**
@@ -204,10 +204,10 @@ enum field_names_message_one_of_one_of_choice_e {
 struct field_names_message_one_of_one_of_oneof_t {
     enum field_names_message_one_of_one_of_choice_e choice;
     union {
-        struct field_names_message_camel_case_t camel_case_message;
-        struct field_names_message_pascal_case_t pascal_case_message;
-        struct field_names_repeated_message_camel_case_t camel_case_message_repeated;
-        struct field_names_repeated_message_pascal_case_t pascal_case_message_repeated;
+        struct field_names_message_camel_case_t *camel_case_message_p;
+        struct field_names_message_pascal_case_t *pascal_case_message_p;
+        struct field_names_repeated_message_camel_case_t *camel_case_message_repeated_p;
+        struct field_names_repeated_message_pascal_case_t *pascal_case_message_repeated_p;
         int32_t my_int32;
         char *my_string_p;
         struct pbtools_bytes_t my_bytes;
@@ -247,6 +247,9 @@ int field_names_message_decode(
     const uint8_t *encoded_p,
     size_t size);
 
+int field_names_message_camel_case_my_message_alloc(
+    struct field_names_message_camel_case_t *self_p);
+
 /**
  * Encoding and decoding of field_names.MessageCamelCase.
  */
@@ -264,6 +267,9 @@ int field_names_message_camel_case_decode(
     struct field_names_message_camel_case_t *self_p,
     const uint8_t *encoded_p,
     size_t size);
+
+int field_names_message_pascal_case_my_message_alloc(
+    struct field_names_message_pascal_case_t *self_p);
 
 /**
  * Encoding and decoding of field_names.MessagePascalCase.

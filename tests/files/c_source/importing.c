@@ -43,7 +43,7 @@ void importing_message_init(
     self_p->base.heap_p = heap_p;
     self_p->base.next_p = (struct pbtools_message_base_t *)next_p;
     self_p->v1 = 0;
-    imported_imported_message_init(&self_p->v2, heap_p, NULL);
+    self_p->v2_p = NULL;
 }
 
 void importing_message_encode_inner(
@@ -53,7 +53,7 @@ void importing_message_encode_inner(
     pbtools_encoder_sub_message_encode(
         encoder_p,
         2,
-        &self_p->v2.base,
+        (struct pbtools_message_base_t *)self_p->v2_p,
         (pbtools_message_encode_inner_t)imported_imported_message_encode_inner);
     pbtools_encoder_write_enum(encoder_p, 1, self_p->v1);
 }
@@ -75,7 +75,9 @@ void importing_message_decode_inner(
             pbtools_decoder_sub_message_decode(
                 decoder_p,
                 wire_type,
-                &self_p->v2.base,
+                (struct pbtools_message_base_t **)&self_p->v2_p,
+                sizeof(struct imported_imported_message_t),
+                (pbtools_message_init_t)imported_imported_message_init,
                 (pbtools_message_decode_inner_t)imported_imported_message_decode_inner);
             break;
 
@@ -84,6 +86,16 @@ void importing_message_decode_inner(
             break;
         }
     }
+}
+
+int importing_message_v2_alloc(
+    struct importing_message_t *self_p)
+{
+    return (pbtools_sub_message_alloc(
+                (struct pbtools_message_base_t **)&self_p->v2_p,
+                self_p->base.heap_p,
+                sizeof(struct imported_imported_message_t),
+                (pbtools_message_init_t)imported_imported_message_init));
 }
 
 void importing_message_encode_repeated_inner(
@@ -164,8 +176,8 @@ void importing_message2_init(
 {
     self_p->base.heap_p = heap_p;
     self_p->base.next_p = (struct pbtools_message_base_t *)next_p;
-    importing_message_init(&self_p->v1, heap_p, NULL);
-    imported2_foo_bar_imported2_message_init(&self_p->v2, heap_p, NULL);
+    self_p->v1_p = NULL;
+    self_p->v2_p = NULL;
 }
 
 void importing_message2_encode_inner(
@@ -175,12 +187,12 @@ void importing_message2_encode_inner(
     pbtools_encoder_sub_message_encode(
         encoder_p,
         2,
-        &self_p->v2.base,
+        (struct pbtools_message_base_t *)self_p->v2_p,
         (pbtools_message_encode_inner_t)imported2_foo_bar_imported2_message_encode_inner);
     pbtools_encoder_sub_message_encode(
         encoder_p,
         1,
-        &self_p->v1.base,
+        (struct pbtools_message_base_t *)self_p->v1_p,
         (pbtools_message_encode_inner_t)importing_message_encode_inner);
 }
 
@@ -197,7 +209,9 @@ void importing_message2_decode_inner(
             pbtools_decoder_sub_message_decode(
                 decoder_p,
                 wire_type,
-                &self_p->v1.base,
+                (struct pbtools_message_base_t **)&self_p->v1_p,
+                sizeof(struct importing_message_t),
+                (pbtools_message_init_t)importing_message_init,
                 (pbtools_message_decode_inner_t)importing_message_decode_inner);
             break;
 
@@ -205,7 +219,9 @@ void importing_message2_decode_inner(
             pbtools_decoder_sub_message_decode(
                 decoder_p,
                 wire_type,
-                &self_p->v2.base,
+                (struct pbtools_message_base_t **)&self_p->v2_p,
+                sizeof(struct imported2_foo_bar_imported2_message_t),
+                (pbtools_message_init_t)imported2_foo_bar_imported2_message_init,
                 (pbtools_message_decode_inner_t)imported2_foo_bar_imported2_message_decode_inner);
             break;
 
@@ -214,6 +230,26 @@ void importing_message2_decode_inner(
             break;
         }
     }
+}
+
+int importing_message2_v1_alloc(
+    struct importing_message2_t *self_p)
+{
+    return (pbtools_sub_message_alloc(
+                (struct pbtools_message_base_t **)&self_p->v1_p,
+                self_p->base.heap_p,
+                sizeof(struct importing_message_t),
+                (pbtools_message_init_t)importing_message_init));
+}
+
+int importing_message2_v2_alloc(
+    struct importing_message2_t *self_p)
+{
+    return (pbtools_sub_message_alloc(
+                (struct pbtools_message_base_t **)&self_p->v2_p,
+                self_p->base.heap_p,
+                sizeof(struct imported2_foo_bar_imported2_message_t),
+                (pbtools_message_init_t)imported2_foo_bar_imported2_message_init));
 }
 
 void importing_message2_encode_repeated_inner(
@@ -295,7 +331,7 @@ void importing_message3_init(
     self_p->base.heap_p = heap_p;
     self_p->base.next_p = (struct pbtools_message_base_t *)next_p;
     self_p->v1 = 0;
-    imported_imported_duplicated_package_message_init(&self_p->v2, heap_p, NULL);
+    self_p->v2_p = NULL;
 }
 
 void importing_message3_encode_inner(
@@ -305,7 +341,7 @@ void importing_message3_encode_inner(
     pbtools_encoder_sub_message_encode(
         encoder_p,
         2,
-        &self_p->v2.base,
+        (struct pbtools_message_base_t *)self_p->v2_p,
         (pbtools_message_encode_inner_t)imported_imported_duplicated_package_message_encode_inner);
     pbtools_encoder_write_enum(encoder_p, 1, self_p->v1);
 }
@@ -327,7 +363,9 @@ void importing_message3_decode_inner(
             pbtools_decoder_sub_message_decode(
                 decoder_p,
                 wire_type,
-                &self_p->v2.base,
+                (struct pbtools_message_base_t **)&self_p->v2_p,
+                sizeof(struct imported_imported_duplicated_package_message_t),
+                (pbtools_message_init_t)imported_imported_duplicated_package_message_init,
                 (pbtools_message_decode_inner_t)imported_imported_duplicated_package_message_decode_inner);
             break;
 
@@ -336,6 +374,16 @@ void importing_message3_decode_inner(
             break;
         }
     }
+}
+
+int importing_message3_v2_alloc(
+    struct importing_message3_t *self_p)
+{
+    return (pbtools_sub_message_alloc(
+                (struct pbtools_message_base_t **)&self_p->v2_p,
+                self_p->base.heap_p,
+                sizeof(struct imported_imported_duplicated_package_message_t),
+                (pbtools_message_init_t)imported_imported_duplicated_package_message_init));
 }
 
 void importing_message3_encode_repeated_inner(

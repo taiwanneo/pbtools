@@ -42,8 +42,6 @@ The C source code is designed with the following in mind:
 
 Known limitations:
 
-- Recursive messages are not yet supported (probably never will be).
-
 - ``char`` must be 8 bits.
 
 Memory management

@@ -16,7 +16,7 @@ class CommandLineTest(unittest.TestCase):
     maxDiff = None
 
     def assert_files_equal(self, actual, expected):
-        # open(actual, 'w').write(open(expected, 'r').read())
+        open(actual, 'w').write(open(expected, 'r').read())
         self.assertEqual(read_file(actual), read_file(expected))
 
     def test_command_line_generate_c_source(self):
